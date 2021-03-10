@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @Table(name = "person")
 public class Person {
     @Id
-    @SequenceGenerator(name = "personSequence", sequenceName = "PERSON_SEQUENCE", allocationSize = 1, initialValue = 1 )
+    @SequenceGenerator(name = "personSequence", sequenceName = "PERSON_SEQUENCE", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personSequence")
     Long id;
     @Size(min = 3, max = 200, message
