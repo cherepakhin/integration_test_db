@@ -1,28 +1,25 @@
 package ru.perm.v.integrtest.repository;
 
-import org.junit.ClassRule;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@Testcontainers
 @ContextConfiguration(initializers = {IntegrationRepositoryTest.Initializer.class})
 public abstract class IntegrationRepositoryTest {
 
-    @ClassRule
+    @Container
     public static PostgreSQLContainer postgreSQLContainer =
             new PostgreSQLContainer("postgres:11.1")
-            .withDatabaseName("db")
-            .withUsername("postgres")
-            .withPassword("postgres");
+                    .withDatabaseName("db")
+                    .withUsername("postgres")
+                    .withPassword("postgres");
 
     static class Initializer
             implements ApplicationContextInitializer<ConfigurableApplicationContext> {
