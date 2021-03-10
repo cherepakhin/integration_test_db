@@ -1,34 +1,35 @@
 package ru.perm.v.integrtest.repository;
 
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.util.TestPropertyValues;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
-@Testcontainers
-@ContextConfiguration(initializers = {IntegrationRepositoryTest.Initializer.class})
+@ActiveProfiles({"test"})
 public abstract class IntegrationRepositoryTest {
 
     @Container
-    public static PostgreSQLContainer postgreSQLContainer =
-            new PostgreSQLContainer("postgres:11.1")
-                    .withDatabaseName("db")
-                    .withUsername("postgres")
-                    .withPassword("postgres");
+    @SuppressWarnings("rawtypes")
+    public static PostgreSQLContainer postgreSQLContainer;
 
-    static class Initializer
-            implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-        public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-            TestPropertyValues.of(
-                    "spring.datasource.url=" + postgreSQLContainer.getJdbcUrl(),
-                    "spring.datasource.username=" + postgreSQLContainer.getUsername(),
-                    "spring.datasource.password=" + postgreSQLContainer.getPassword()
-            ).applyTo(configurableApplicationContext.getEnvironment());
-        }
+    static {
+        DockerImageName postgres = DockerImageName.parse("postgres:13.1");
+
+        postgreSQLContainer = (PostgreSQLContainer) new PostgreSQLContainer(postgres)
+                .withReuse(true);
+
+        postgreSQLContainer.start();
+    }
+
+    @SuppressWarnings("unused")
+    @DynamicPropertySource
+    static void datasourceConfig(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
     }
 }

@@ -20,12 +20,13 @@ public class Person {
     Long id;
     @Size(min = 3, max = 200, message
             = "Name must be between 3 and 200 characters")
-    String name;
+    @Column(columnDefinition = "varchar(255) default ''")
+    String name = "";
     @Min(value = 1, message = "Id should not be less than 1")
-    Integer age;
+    @Column(columnDefinition = "integer default 1")
+    Integer age = 1;
 
-    public Person(@Size(min = 3, max = 200, message
-            = "Name must be between 3 and 200 characters") String name, @Min(value = 1, message = "Id should not be less than 1") Integer age) {
+    public Person(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
