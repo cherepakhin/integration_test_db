@@ -8,11 +8,23 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@SqlResultSetMapping(
+        name = "PersonProjectMapping",
+        classes = @ConstructorResult(
+                targetClass = PersonProject.class,
+                columns = {
+                        @ColumnResult(name = "personId", type = Long.class),
+                        @ColumnResult(name = "projectId", type = Long.class)
+                }
+        )
+)
 @Entity
 @Table(name = "person")
 public class Person {
@@ -27,6 +39,14 @@ public class Person {
     @Min(value = 1, message = "Id should not be less than 1")
     @Column(columnDefinition = "integer default 1")
     Integer age = 1;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "person_project",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    Set<Project> projects = new HashSet<>();
 
     public Person(String name, Integer age) {
         this.name = name;

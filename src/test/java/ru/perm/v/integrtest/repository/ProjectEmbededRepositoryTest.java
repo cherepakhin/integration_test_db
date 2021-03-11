@@ -1,16 +1,20 @@
 package ru.perm.v.integrtest.repository;
 
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import ru.perm.v.integrtest.model.IPersonProject;
 import ru.perm.v.integrtest.model.Person;
+import ru.perm.v.integrtest.model.PersonProject;
 import ru.perm.v.integrtest.model.Project;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureEmbeddedDatabase
+@Slf4j
 class ProjectEmbededRepositoryTest {
 
     @Autowired
@@ -74,5 +79,43 @@ class ProjectEmbededRepositoryTest {
 
         assertEquals("PROJECT_1001", selected1000.getName());
         assertEquals("PERSON_1000", selected1000.getOwner().getName());
+    }
+
+    @Test
+    @Transactional
+    public void getIProjectPerson() {
+        Person person = new Person("PERSON_1", 1);
+
+        Project project = new Project("PROJECT_1", null);
+
+        Project saved = repository.saveAndFlush(project);
+        person.getProjects().add(project);
+        Person savedPerson = personRepository.saveAndFlush(person);
+
+        assertEquals("PROJECT_1", saved.getName());
+        assertEquals(1, savedPerson.getProjects().size());
+
+        List<IPersonProject> links = repository.getIProjectPerson();
+        log.info("===================={}", links.get(0).getInfo());
+        assertEquals(1, links.size());
+    }
+
+    @Test
+    @Transactional
+    public void getProjectPerson() {
+        Person person = new Person("PERSON_1", 1);
+
+        Project project = new Project("PROJECT_1", null);
+
+        Project saved = repository.saveAndFlush(project);
+        person.getProjects().add(project);
+        Person savedPerson = personRepository.saveAndFlush(person);
+
+        assertEquals("PROJECT_1", saved.getName());
+        assertEquals(1, savedPerson.getProjects().size());
+
+        List<PersonProject> links = personRepository.getProjectPerson();
+        log.info("===================={}", links.get(0).toString());
+        assertEquals(1, links.size());
     }
 }

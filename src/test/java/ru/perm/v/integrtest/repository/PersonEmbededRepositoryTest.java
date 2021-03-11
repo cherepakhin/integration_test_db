@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.perm.v.integrtest.model.Person;
-import ru.perm.v.integrtest.repository.PersonRepository;
 
 import javax.transaction.Transactional;
 import java.util.Optional;

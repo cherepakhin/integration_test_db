@@ -12,7 +12,8 @@
         <append>false</append>
         <encoder
                 class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%d{HH:mm:ss.SSS} %logger{36} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
+<!--            <pattern>%d{HH:mm:ss.SSS} %-5level %logger - %msg%n</pattern>-->
             <!--            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>-->
         </encoder>
     </appender>
@@ -22,6 +23,10 @@
     </root>
 
     <logger name="org.hibernate.SQL" level="debug">
+        <appender-ref ref="FileTraceSQL"/>
+    </logger>
+
+    <logger name="org.hibernate.resource.jdbc.internal.ResourceRegistryStandardImpl" level="trace">
         <appender-ref ref="FileTraceSQL"/>
     </logger>
 
