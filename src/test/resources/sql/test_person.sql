@@ -1,2 +1,1 @@
-insert into person(id, name, age)
-values (200, '100', 100);
+insert into person(id, name, age) values (200, '100', 100);

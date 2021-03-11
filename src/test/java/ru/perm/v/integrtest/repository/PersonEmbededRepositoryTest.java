@@ -1,4 +1,4 @@
-package ru.perm.v.integrtest.repository.embeded;
+package ru.perm.v.integrtest.repository;
 
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.jupiter.api.Test;
