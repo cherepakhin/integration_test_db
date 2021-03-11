@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.perm.v.integrtest.model.Person;
 import ru.perm.v.integrtest.model.Project;
@@ -63,5 +64,15 @@ class ProjectEmbededRepositoryTest {
 
         assertEquals("PROJECT_1", selected.getName());
         assertEquals("PERSON_1", selected.getOwner().getName());
+    }
+
+    @Test
+    @Transactional
+    @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:sql/test_project.sql")
+    void getProject() {
+        Project selected1000 = repository.getOne(1001L);
+
+        assertEquals("PROJECT_1001", selected1000.getName());
+        assertEquals("PERSON_1000", selected1000.getOwner().getName());
     }
 }
