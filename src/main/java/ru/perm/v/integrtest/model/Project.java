@@ -5,11 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 @Entity
 @Table(name = "project")
 public class Project {
