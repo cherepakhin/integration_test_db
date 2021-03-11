@@ -23,7 +23,7 @@ public class Project {
             = "Name must be between 3 and 200 characters")
     String name;
     @ManyToOne
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "owner_id")
     Person owner;
 
     // По умолчанию не д.б. null.
