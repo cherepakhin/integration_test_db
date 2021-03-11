@@ -1,5 +1,6 @@
 package ru.perm.v.integrtest.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -10,6 +11,7 @@ import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
 @ActiveProfiles({"test"})
+@Slf4j
 public abstract class IntegrationRepositoryTest {
 
     @Container
@@ -28,6 +30,11 @@ public abstract class IntegrationRepositoryTest {
     @SuppressWarnings("unused")
     @DynamicPropertySource
     static void datasourceConfig(DynamicPropertyRegistry registry) {
+        log.info("=================================url: {}, username: {}, pass: {}",
+                postgreSQLContainer.getJdbcUrl(),
+                postgreSQLContainer.getUsername(),
+                postgreSQLContainer.getPassword()
+        );
         registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
         registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
         registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
