@@ -1,4 +1,6 @@
 spring:
+  flayway:
+    shemas: 2.4.3
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -7,6 +9,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 logging:
   level:

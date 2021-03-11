@@ -46,7 +46,7 @@ class ProjectRepositoryTest extends IntegrationRepositoryTest {
     @Test
     @Transactional
     void getById() {
-        Person person = new Person("PERSON_1",1);
+        Person person = new Person("PERSON_1", 1);
         personRepository.save(person);
 
         Project project = new Project("PROJECT_1", person);
@@ -54,7 +54,7 @@ class ProjectRepositoryTest extends IntegrationRepositoryTest {
 
         Project selected = repository.getOne(saved.getId());
 
-        assertEquals("PROJECT_1",selected.getName());
-        assertEquals("PERSON_1",selected.getOwner().getName());
+        assertEquals("PROJECT_1", selected.getName());
+        assertEquals("PERSON_1", selected.getOwner().getName());
     }
 }

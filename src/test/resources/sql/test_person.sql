@@ -1,2 +1,2 @@
 insert into person(id, name, age)
-values (0, '-', 1);
+values (200, '100', 100);
