@@ -1,0 +1,19 @@
+spring:
+  flayway:
+    shemas: 2.4.3
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    # show SQL statements in console.
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
