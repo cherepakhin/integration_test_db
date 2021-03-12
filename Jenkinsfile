@@ -15,7 +15,7 @@ pipeline {
             agent {
                 docker {
                     image 'adoptopenjdk/openjdk11'
-                    args "-w $PWD -v /home/vasi/.m2:/home/vasi/.m2 -v /var/run/docker.sock:/var/run/docker.sock"
+                    args "-u 0:0 -w $PWD -v /home/vasi/.m2:/home/vasi/.m2 -v /var/run/docker.sock:/var/run/docker.sock"
                 }
             }
             stages {
