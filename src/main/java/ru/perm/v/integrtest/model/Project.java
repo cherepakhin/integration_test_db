@@ -26,9 +26,6 @@ public class Project {
     @JoinColumn(name = "owner_id")
     Person owner;
 
-//    @ManyToMany(mappedBy = "projects", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    Set<Person> persons = new HashSet<>();
-
     public Project(String name, Person owner) {
         this.name = name;
         this.owner = owner;
@@ -44,13 +41,4 @@ public class Project {
         }
     }
 
-//    public void addPerson(Person person) {
-//        persons.add(person);
-//        person.getProjects().add(this);
-//    }
-//
-//    public void removePerson(Person person) {
-//        persons.remove(person);
-//        person.getProjects().remove(this);
-//    }
 }

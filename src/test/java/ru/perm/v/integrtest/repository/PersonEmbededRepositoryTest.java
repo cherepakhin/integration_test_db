@@ -58,4 +58,13 @@ class PersonEmbededRepositoryTest {
         assertFalse(repository.existsById(saved1.getId()));
         assertTrue(repository.existsById(saved2.getId()));
     }
+
+    @Test
+    @Transactional
+    @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:sql/test_person_set_projects.sql")
+    void fromPerson_SetProjects() {
+        Person person = repository.getOne(1000L);
+        assertEquals(2, person.getProjects().size());
+    }
+
 }
