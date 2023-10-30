@@ -21,6 +21,6 @@ export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
 #### С базами данных
 
 Два способа тестирования:
-- используя https://www.testcontainers.org/[testcontainers]. Решение основано на запуске базы в docker. Отсюда ограничение - на тестовой машине д.б. развернут docker. Тесты в xref:src/test/java/ru/perm/v/integrtest/repository/
+- используя https://www.testcontainers.org/[testcontainers]. Решение основано на запуске базы в docker. Отсюда ограничение - на тестовой машине д.б. развернут docker. Тесты в src/test/java/ru/perm/v/integrtest/repository/
  
-- используя встроенную(embeded) БД. Тесты в link:file:src/test/java/ru/perm/v/integrtest/repository/embeded/PersonEmbededRepositoryTest.java
+- используя встроенную(embeded) БД. Тесты в src/test/java/ru/perm/v/integrtest/repository/embeded/PersonEmbededRepositoryTest.java
