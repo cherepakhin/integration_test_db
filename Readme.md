@@ -11,12 +11,12 @@ export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
 
 ````shell
 ./mvnw test
-
+....
 [INFO] Results:
 [INFO] 
 [INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0
 [INFO] 
-
+...
 ````
 
 #### С базами данных
